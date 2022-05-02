@@ -221,7 +221,7 @@ session_start();
         
     </div>
     
-    <div class="input-group mb-3">
+    <!-- <div class="input-group mb-3">
   <div class="input-group-prepend">
   <span class="input-group-text fa fa-user" id="user_type"> User Type</span>
   </div>
@@ -230,7 +230,7 @@ session_start();
   <option id="adm" disabled value="Admin">Admin </option>
   <option id="usr" selected value="User">User </option>
   </select>
-  </div>
+  </div> -->
 
 
                
