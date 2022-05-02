@@ -83,72 +83,7 @@ session_start();
 
 
                 <form method="POST" action="log.php" class="form-signin">
-            <?php
-             if(!isset($_SESSION["userSmsId"])) {
-                if(isset($_GET["reset"])) {
-                  if($_GET["reset"] == "success") {
-                  echo "<p style='font-weight: 300; color: green;' class='text-center'>We have Sent You a Link. Check Your E-mail Address</p>";
-                  }
-                  }  if(isset($_GET["newpwd"])) {
-                      if($_GET["newpwd"] == "passwordupdated") {
-                          echo "<p  class='text-center style='display: flex; color: blue; font-size: 14px; font-weight: 300;'>Your Password has been updated</p>";
-                          }
-                  } 
-              } else {
-                   //header("Location: login.php?login=you are logged in already");
-                  echo "<div  class='text-center style='display: flex; color: #000; font-size: 20px;'> <h3>You are already logged in</h3></div>";
-              }
-             if(!isset($_SESSION["userSmsId"])) {
-                include "connPDO.php";
-       
-       if($_GET) {
-               if(isset($_GET["email"])) {
-                   $email = $_GET["email"];
-                   if($email == "") {
-                       unset($email);
-                   }
-               }
-               if(isset($_GET["token"])) {
-                   $token = $_GET["token"];
-                   if($token == "") {
-                       unset($token);
-                   }
-               }
-               if(!empty($email) && !empty($token))  {
-                   $select = $conn->prepare("SELECT idSmsUsers from users WHERE emailSmsUsers = :email AND token=:token");
-                   $select->execute(array(
-                     "email" => $email,
-                       "token" => $token
-                   ));
-                   if($select->fetchColumn() > 0) {
-                       $update = $conn->prepare("UPDATE users SET confirmation=1, token='' WHERE emailSmsUsers=:email");
-                       $update->execute(array(
-                           "email" => $email
-                       ));
-                       if(!$update) {
-                         echo "<p class='text-center' style='color: red; font-weight: 400;'>Email has not been Confirmed</p>";
-                   } else {
-                       echo "<p  class='text-center' style='color: green; font-weight: 500;'>Email has been confirmed! </p>";
-                   }
-                   
-           }
-             
-               } 
-           }
-           if(isset($_GET["error"])) {
-                   if($_GET["error"] == "emptyFields") {
-                   echo "<p style='font-weight: 300; color: red;' class='text-center'>Field(s) is/are Empty. Kindly fill in your details</p>";
-       
-                   } elseif($_GET["error"] == "NouserFound") {
-                     echo "<p style='font-weight: 300; color: red;' class='text-center'>UserName/Email Not Found. Kindly Register via <a style='font-weight: 700;' href='register.php'> SignUp </a> or Verify your Email Address via the link sent to email address. Thanks</p>";
-                   }
-                 } elseif(isset($_GET["passworderror"])) {
-                   if($_GET["passworderror"] == "wrongPassword") {
-                   echo "<p style='font-weight: 300; color: red;' class='text-center'>Wrong Password. Kindly check up Your Password</p>";
-                 }
-                 }
-               }
-               ?>
+            
                     <!-- <input type="hidden" name="csrfmiddlewaretoken" value="bfeGzUe5pshSDJI7tw4URRIFi8ZL0mH55zcaaumnCusXPyQEiOYKt1vRXXRgm7mm"> -->
                     <div class="form-group">
                         
@@ -244,9 +179,9 @@ session_start();
             <div class="card-footer bg-white p-0 ">
                 <div class="card-footer-item card-footer-item-bordered">
                     <a href="register" class="footer-link">Create An Account</a></div>
-                <div class="card-footer-item card-footer-item-bordered">
+                <!-- <div class="card-footer-item card-footer-item-bordered">
                     <a href="password_reset.php" class="footer-link">Forgot Password</a>
-                </div>
+                </div> -->
             </div>
         </div>
     </div>
